@@ -1,0 +1,12 @@
+h1{
+  margin: 60px 0;
+  font-weight: 400;
+}
+
+.card_list{
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+  gap: 30px;
+  align-items: center;
+}
