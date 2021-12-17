@@ -2,7 +2,9 @@ import React from 'react';
 import logo from '../assets/a-logo.svg'
 import * as Icon from 'react-icons/bs'
 import style from '../styles/navbar.module.css'
-import CartList from './CartList'
+// import CartList from './CartList'
+import Modal from './Modal';
+import { Link } from 'react-router-dom';
 
 
 class NavBar extends React.Component {
@@ -23,7 +25,9 @@ class NavBar extends React.Component {
           <p>KIDS</p>
         </div>
         <div>
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <div className={`${style.flex} ${style.icon}`}>
           <div className={style.flex}>
@@ -35,26 +39,11 @@ class NavBar extends React.Component {
             </span>
           </div>
           <span>
-            <Icon.BsCart2 onClick={() => { this.setState({ cart: !this.state.cart }) }} />
-            {this.state.cart ? (
-              <div className={style.cart_modal}>
-                <div className={style.cart}>
-                  <p className={style.cart_title}>My Bag, 2 items</p>
-                  <div>
-                    <CartList brand="Apollo" title="Running short" price="$50" />
-                    <CartList brand="Apollo" title="Running short" price="$50" />
-                  </div>
-                  <div className={`${style.flex} ${style.cart_price}`}>
-                    <p>Total</p>
-                    <p>$100.00</p>
-                  </div>
-                  <div className={`${style.flex} ${style.cart_button}`}>
-                    <button>VIEW BAG</button>
-                    <button>CHECK OUT</button>
-                  </div>
-                </div>
-              </div>
-            ) : ""}
+            <div className={style.cart_icon} onClick={() => { this.setState({ cart: !this.state.cart }) }}>
+              <Icon.BsCart2 />
+              <small className={style.item_in_cart}>1</small>
+            </div>
+            {this.state.cart ? <Modal /> : ""}
           </span>
         </div>
       </nav>

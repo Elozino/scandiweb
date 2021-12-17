@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import style from '../styles/catergory.module.css'
 
@@ -57,9 +58,11 @@ class Category extends React.Component {
         <h1>Category Name</h1>
         <div className={style.card_list}>
           {queries.map(itemData => (
-            <div key={itemData.id}>
-              <Card image={itemData.gallery} name={`${itemData.brand} ${itemData.name}`} price="$50" />
-            </div>
+            <Link to="./pages/pdp" className={style.link}>
+              <div key={itemData.id}>
+                <Card image={itemData.gallery} name={`${itemData.brand} ${itemData.name}`} price="$50" />
+              </div>
+            </Link>
           ))}
         </div>
       </main>

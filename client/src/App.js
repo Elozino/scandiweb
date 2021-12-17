@@ -6,9 +6,16 @@ import Cart from "./pages/Cart";
 import Pdp from "./pages/Pdp";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div className={this.state.cart? "hide" : ""}>
         <Router>
           <NavBar />
           <Routes>
