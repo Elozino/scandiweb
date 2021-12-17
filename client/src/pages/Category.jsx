@@ -35,7 +35,7 @@ class Category extends React.Component {
               }
             }
           }
-        
+
       `
       })
     })
@@ -49,6 +49,8 @@ class Category extends React.Component {
         this.setState({ queries: query })
       });
   }
+
+
 
   render() {
     const { queries } = this.state
