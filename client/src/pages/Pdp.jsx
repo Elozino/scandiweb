@@ -4,6 +4,15 @@ import image from "../assets/Product Card/ProductB.png"
 import style from '../styles/pdp.module.css'
 
 class Pdp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0
+    }
+  }
+
+  
+
   render() {
     return (
       <div className={style.container}>

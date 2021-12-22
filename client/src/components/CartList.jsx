@@ -6,9 +6,25 @@ class CartList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false
+      clicked: false,
+      counter: 0,
     }
   }
+
+  addToCart() {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+
+  removeFromCart() {
+    if (this.state.counter === 0) {
+      this.setState({ counter: 0 })
+    }
+    else {
+      this.setState({ counter: this.state.counter - 1 })
+    }
+  }
+
+  // onClick={() => this.inCrementCounter}
   render() {
     return (
       <div className={style.cart_list}>
@@ -24,9 +40,9 @@ class CartList extends React.Component {
 
         <div className={style.product_image}>
           <p>
-            <button>+</button>
-            <span>1</span>
-            <button>-</button>
+            <button onClick={() => { this.addToCart() }}>+</button>
+            <span>{this.state.counter}</span>
+            <button onClick={() => { this.removeFromCart() }}>-</button>
           </p>
           <div className={style.product_img}>
             <img src={item} alt="item" />

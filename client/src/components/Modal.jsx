@@ -9,15 +9,6 @@ class Modal extends React.Component {
     this.state = {}
   }
 
-  componentDidMount() {
-    if (!this.state.cart) {
-      // document.body.style.overflowY = 'hidden';
-    }
-  }
-  componentWillUnmount() {
-    // document.body.style.overflowY = 'unset';
-  }
-
   render() {
     return (
       <div className={style.cart_modal}>

@@ -21,7 +21,7 @@ class Card extends React.Component {
             {/**Real data to be fetch from the server */}
             <div className={style.card_item}>
               <div>
-                <img src={this.props.image} alt="product1" className={style.card_image} />
+                <img src={this.props.image} alt={this.props.name} className={style.card_image} />
               </div>
               <p className={style.item}>{this.props.name}</p>
               <p className={style.price}>{this.props.price}</p>
