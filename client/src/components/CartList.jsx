@@ -1,5 +1,5 @@
 import React from 'react';
-import item from '../assets/Product Card/ProductB.png'
+// import item from '../assets/Product Card/ProductB.png'
 import style from '../styles/cartList.module.css'
 
 class CartList extends React.Component {
@@ -45,7 +45,7 @@ class CartList extends React.Component {
             <button onClick={() => { this.removeFromCart() }}>-</button>
           </p>
           <div className={style.product_img}>
-            <img src={item} alt="item" />
+            <img src={this.props.image} alt="item" />
           </div>
         </div>
       </div>

@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import image from "../assets/Product Card/ProductB.png"
+// import { Link } from 'react-router-dom';
+// import image from "../assets/Product Card/ProductB.png"
 import style from '../styles/pdp.module.css'
+// import { useLocation } from "react-router-dom"
+import { connect } from 'react-redux';
+import { addToCart, singleItem } from "../redux/actions/ProductAction"
 
 class Pdp extends React.Component {
   constructor(props) {
@@ -11,20 +14,27 @@ class Pdp extends React.Component {
     }
   }
 
-  
+  handleCart(item) {
+
+    console.log(item);
+    //We can now pick the price the name etc
+    this.props.addToCart([...this.props.cart, item])
+  }
+
+
 
   render() {
     return (
       <div className={style.container}>
         <div className={style.image_container}>
           <div className={style.side_image}>
-            <img src={image} alt="Item_side" />
-            <img src={image} alt="Item_side" />
-            <img src={image} alt="Item_side" />
+            <img src={this.props.gallery} alt="Item_side" />
+            <img src={this.props.gallery} alt="Item_side" />
+            <img src={this.props.gallery} alt="Item_side" />
           </div>
 
           <div className={style.image}>
-            <img src={image} alt="Item" />
+            <img src={this.props.gallery} alt="Item_side" />
           </div>
         </div>
 
@@ -53,9 +63,7 @@ class Pdp extends React.Component {
             <p className={style.bold}>$50.00</p>
             <br />
             <div >
-              <Link to="/pages/cart">
-                <button className={style.btn_cart}>ADD TO CART</button>
-              </Link>
+              <button className={style.btn_cart} onClick={() => this.handleCart(this.props.item)}>ADD TO CART</button>
             </div>
           </div>
           <br />
@@ -68,4 +76,15 @@ class Pdp extends React.Component {
   }
 }
 
-export default Pdp;
+
+const mapStateToProps = (state) => ({
+  // The state
+  cart: state.products.cart,
+})
+
+const mapActionToProps = {
+  //The action
+  addToCart,
+  singleItem
+}
+export default connect(mapStateToProps, mapActionToProps)(Pdp)

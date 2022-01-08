@@ -2,9 +2,10 @@ import React from 'react';
 import logo from '../assets/a-logo.svg'
 import * as Icon from 'react-icons/bs'
 import style from '../styles/navbar.module.css'
-// import CartList from './CartList'
 import Modal from './Modal';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addToCart } from "../redux/actions/ProductAction"
 
 
 class NavBar extends React.Component {
@@ -41,9 +42,9 @@ class NavBar extends React.Component {
           <span>
             <div className={style.cart_icon} onClick={() => { this.setState({ cart: !this.state.cart }) }}>
               <Icon.BsCart2 />
-              <small className={style.item_in_cart}>1</small>
+              <small className={style.item_in_cart}>{this.props.cart.length}</small>
             </div>
-            {this.state.cart ? <Modal /> : ""}
+            {this.state.cart ? <Modal cartItem={this.props.cart} /> : ""}
           </span>
         </div>
       </nav>
@@ -51,6 +52,15 @@ class NavBar extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  // The state
+  cart: state.products.cart,
+})
 
-export default NavBar;
+const mapActionToProps = {
+  //The action
+  addToCart
+}
+export default connect(mapStateToProps, mapActionToProps)(NavBar)
+
 

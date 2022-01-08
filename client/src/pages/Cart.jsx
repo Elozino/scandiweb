@@ -13,11 +13,14 @@ class Cart extends React.Component {
             itemTitle="Running Short"
             price="$50"
           />
+          {/* {this.props.cartItem.map((item) => (
+            <CartList key={item.id} brand={item.name} title={item.title} price={item.price} image={item.gallery} />
+          ))}
           <CartList
             brand="Jupiter"
             itemTitle="Wayfarer"
             price="$75"
-          />
+          /> */}
         </div>
       </div>
     );

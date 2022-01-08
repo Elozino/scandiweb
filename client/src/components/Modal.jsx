@@ -13,15 +13,20 @@ class Modal extends React.Component {
     return (
       <div className={style.cart_modal}>
         <div className={style.cart}>
-          <p className={style.cart_title}>My Bag, 2 items</p>
+          <p className={style.cart_title}>My Bag, {this.props.cartItem.length} items</p>
           <div>
-            <CartList brand="Apollo" title="Running short" price="$50" />
-            <CartList brand="Apollo" title="Running short" price="$50" />
+            {this.props.cartItem.map((item) => (
+              <CartList key={item.id} brand={item.name} title={item.title} price={item.price} image={item.gallery} />
+            ))}
           </div>
+
+
           <div className={`${style.flex} ${style.cart_price}`}>
             <p>Total</p>
             <p>$100.00</p>
           </div>
+
+
           <div className={`${style.flex} ${style.cart_button}`}>
             <button>VIEW BAG</button>
             <button>CHECK OUT</button>

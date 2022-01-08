@@ -1,70 +1,194 @@
-<!-- # Getting Started with Create React App
+import React from 'react';
+import { connect } from 'react-redux';
+import Card from '../components/Card';
+import style from '../styles/catergory.module.css'
+import { getAllProducts } from "../redux/actions/ProductAction"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+class Category extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // itemList: [],
+      products: []
+    }
+  }
 
-### `npm start`
+  componentDidMount() {
+    fetch('http://localhost:4000/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          query{
+            category{
+              products{
+                brand
+                gallery
+                name
+                id
+                prices{
+                  currency
+                  amount
+                }
+              }
+            }
+          }
+      `
+      })
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        let query = result.data.category.products
+        this.props.getAllProducts([...query])
+        // query.map((itemList) => (
+        //   this.setState(itemList)
+        // ))
+        // console.log(query)
+        // this.setState({ queries: query })
+      });
+  }
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  render() {
+    const cart = this.props.products
+    const products = cart.products
+    console.log(products);
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+    return (
+      <main>
+        <h1>Category Name</h1>
+        <div className={style.card_list}>
+          {products && products?.map(itemData => (
+            <div key={itemData.id}>
+              {/* <Card image={itemData.gallery} name={`${itemData.brand} ${itemData.name}`} price="$50" /> */}
+              <Card item={itemData} />
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
+}
 
-### `npm test`
+const mapStateToProps = (state) => ({
+  // The state
+  products: state.products,
+})
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+const mapActionToProps = {
+  //The action
+  getAllProducts
+}
 
-### `npm run build`
+export default connect(mapStateToProps, mapActionToProps)(Category)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+// import Product1 from '../assets/Product Card/ProductA.png'
+import style from '../styles/card.module.css'
+import { BsCart2 } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addToCart, singleItem } from "../redux/actions/ProductAction"
+
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
+
+  handleCart(item) {
+
+    console.log(item);
+    //We can now pick the price the name etc
+    this.props.addToCart([...this.props.cart, item])
+  }
+
+  handleSingleItem(item) {
+    this.props.singleItem([...item])
+  }
+
+
+  render() {
+    return (
+      <>
+        <div className={style.card_container}>
+          <Link to={{ pathname: "/pages/pdp", state: this.props.item }} className={style.link} onClick={() => this.handleSingleItem(this.props.item)}>
+            {/**Real data to be fetch from the server */}
+            <div className={style.card_item}>
+              <div>
+                <img src={item.gallery} alt={this.props.item.name} className={style.card_image} />
+              </div>
+              <p className={style.item}>{`${this.props.item.brand} ${this.props.item.name}`}</p>
+              <p className={style.price}>{this.props.item.price}</p>
+            </div>
+          </Link>
+          <div className={style.hover_icon} onClick={() => this.handleCart(this.props.item)}>
+            <BsCart2 />
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+
+
+const mapStateToProps = (state) => ({
+  // The state
+  cart: state.products.cart,
+})
+
+const mapActionToProps = {
+  //The action
+  addToCart,
+  singleItem
+}
+export default connect(mapStateToProps, mapActionToProps)(Card)
+
+
+
+

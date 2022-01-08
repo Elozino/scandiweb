@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Card from '../components/Card';
 import style from '../styles/catergory.module.css'
+import { getAllProducts } from "../redux/actions/ProductAction"
 
 
 
@@ -8,8 +10,8 @@ class Category extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemList: [],
-      queries: []
+      // itemList: [],
+      products: []
     }
   }
 
@@ -35,32 +37,34 @@ class Category extends React.Component {
               }
             }
           }
-
       `
       })
     })
       .then((res) => res.json())
       .then((result) => {
         let query = result.data.category.products
-        query.map((itemList) => (
-          this.setState(itemList)
-        ))
-        console.log(query)
-        this.setState({ queries: query })
+        this.props.getAllProducts([...query])
+        // query.map((itemList) => (
+        //   this.setState(itemList)
+        // ))
+        // console.log(query)
+        // this.setState({ queries: query })
       });
   }
 
-
-
   render() {
-    const { queries } = this.state
+    const cart = this.props.products
+    const products = cart.products
+    console.log(products);
+
     return (
       <main>
         <h1>Category Name</h1>
         <div className={style.card_list}>
-          {queries.map(itemData => (
+          {products && products?.map(itemData => (
             <div key={itemData.id}>
-              <Card image={itemData.gallery} name={`${itemData.brand} ${itemData.name}`} price="$50" />
+              {/* <Card image={itemData.gallery} name={`${itemData.brand} ${itemData.name}`} price="$50" /> */}
+              <Card item={itemData} />
             </div>
           ))}
         </div>
@@ -69,4 +73,14 @@ class Category extends React.Component {
   }
 }
 
-export default Category;
+const mapStateToProps = (state) => ({
+  // The state
+  products: state.products,
+})
+
+const mapActionToProps = {
+  //The action
+  getAllProducts
+}
+
+export default connect(mapStateToProps, mapActionToProps)(Category)

@@ -64,6 +64,7 @@ nav {
   top: 80px;
   width: 100vw;
   height: calc(100vh - 80px);
+  overflow-y: scroll;
   margin: 0;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.3);
