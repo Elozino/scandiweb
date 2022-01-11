@@ -7,13 +7,6 @@ import { getAllProducts } from "../redux/actions/ProductAction"
 
 
 class Category extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // itemList: [],
-      products: []
-    }
-  }
 
   componentDidMount() {
     fetch('http://localhost:4000/', {

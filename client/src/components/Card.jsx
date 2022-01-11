@@ -1,5 +1,4 @@
 import React from 'react';
-// import Product1 from '../assets/Product Card/ProductA.png'
 import style from '../styles/card.module.css'
 import { BsCart2 } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
@@ -22,16 +21,18 @@ class Card extends React.Component {
     this.props.addToCart([...this.props.cart, item])
   }
 
-  handleSingleItem(item) {
-    this.props.singleItem([...item])
-  }
+  // handleSingleItem(item) {
+  //   this.props.singleItem([...item])
+  // }
+
+  // onClick={() => this.handleSingleItem(this.props.item)}
 
 
   render() {
     return (
       <>
         <div className={style.card_container}>
-          <Link to={{ pathname: "/pages/pdp", state: this.props.item }} className={style.link} onClick={() => this.handleSingleItem(this.props.item)}>
+          <Link to={{ pathname: "/pages/pdp", state: this.props.item }} className={style.link} >
             {/**Real data to be fetch from the server */}
             <div className={style.card_item}>
               <div>

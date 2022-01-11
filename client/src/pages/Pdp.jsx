@@ -1,6 +1,5 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-// import image from "../assets/Product Card/ProductB.png"
 import style from '../styles/pdp.module.css'
 // import { useLocation } from "react-router-dom"
 import { connect } from 'react-redux';
@@ -10,20 +9,20 @@ class Pdp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0
+      counter: 0,
     }
   }
 
-  handleCart(item) {
-
+  handleCat(item) {
     console.log(item);
     //We can now pick the price the name etc
-    this.props.addToCart([...this.props.cart, item])
+    // this.props.addToCart([...this.props.cart, item])
   }
 
 
 
   render() {
+    
     return (
       <div className={style.container}>
         <div className={style.image_container}>
@@ -41,7 +40,7 @@ class Pdp extends React.Component {
         <div className={style.cart}>
           <p className={`${style.item_name} ${style.bold}`}>Apollo</p>
           <br />
-          <p className={`${style.item_name}`}>Running Short</p>
+          <p className={`${style.item_name}`}>Running shorts</p>
 
           <br />
 
@@ -63,7 +62,7 @@ class Pdp extends React.Component {
             <p className={style.bold}>$50.00</p>
             <br />
             <div >
-              <button className={style.btn_cart} onClick={() => this.handleCart(this.props.item)}>ADD TO CART</button>
+              <button className={style.btn_cart} onClick={() => this.handleCat(this.props.item)}>ADD TO CART</button>
             </div>
           </div>
           <br />
