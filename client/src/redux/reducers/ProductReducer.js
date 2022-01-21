@@ -4,6 +4,7 @@ const initialState = {
   cart: [],
   products: [],
   singleItem: [],
+  money: [],
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -21,7 +22,12 @@ const ProductReducer = (state = initialState, { type, payload }) => {
     case actionTypes.SINGLE_ITEM:
       return {
         ...state,
-        singleItem: payload
+        singleItem: payload,
+      };
+    case actionTypes.MONEY_SYMBOL:
+      return {
+        ...state,
+        money: payload,
       };
     default: {
       return state;

@@ -15,6 +15,8 @@ export const singleItem = (value) => ({
   payload: value,
 });
 
-// export const getAllProducts = async (products) => (dispatch) => ({
-//   await fetch("https://onGod"){}
-// });
+export const moneySymbol =(value)=>({
+  type: actionTypes.MONEY_SYMBOL,
+  payload: value,
+});
+

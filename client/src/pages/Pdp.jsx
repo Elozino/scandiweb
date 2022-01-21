@@ -1,28 +1,34 @@
-import React from 'react';
+import React from "react";
 // import { Link } from 'react-router-dom';
-import style from '../styles/pdp.module.css'
+import style from "../styles/pdp.module.css";
 // import { useLocation } from "react-router-dom"
-import { connect } from 'react-redux';
-import { addToCart, singleItem } from "../redux/actions/ProductAction"
+import { connect } from "react-redux";
+import { addToCart, singleItem } from "../redux/actions/ProductAction";
+import {useHistory} from "react-router-dom"
 
 class Pdp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       counter: 0,
-    }
+    };
   }
+  // handleGetHistory(){
+  //   const history = useHistory()
+  //   return history
+  // }
 
   handleCat(item) {
     console.log(item);
-    //We can now pick the price the name etc
+    console.log(this.props.history);
+    console.log(this.props.state);
+    // We can now pick the price the name etc
     // this.props.addToCart([...this.props.cart, item])
   }
 
-
-
   render() {
-    
+    const {history} = this.state
+    console.log(history);
     return (
       <div className={style.container}>
         <div className={style.image_container}>
@@ -61,13 +67,22 @@ class Pdp extends React.Component {
             <br />
             <p className={style.bold}>$50.00</p>
             <br />
-            <div >
-              <button className={style.btn_cart} onClick={() => this.handleCat(this.props.item)}>ADD TO CART</button>
+            <div>
+              <button
+                className={style.btn_cart}
+                onClick={() => this.handleCat(this.props.item)}
+              >
+                ADD TO CART
+              </button>
             </div>
           </div>
           <br />
           <div className={style.description}>
-            <p>Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</p>
+            <p>
+              Find stunning women's cocktail dresses and party dresses. Stand
+              out in lace and metallic cocktail dresses and party dresses from
+              all your favorite brands.
+            </p>
           </div>
         </div>
       </div>
@@ -75,15 +90,15 @@ class Pdp extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state) => ({
   // The state
   cart: state.products.cart,
-})
+});
 
 const mapActionToProps = {
   //The action
   addToCart,
-  singleItem
-}
-export default connect(mapStateToProps, mapActionToProps)(Pdp)
+  singleItem,
+};
+
+export default connect(mapStateToProps, mapActionToProps)(Pdp);
