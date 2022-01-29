@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   singleItem: [],
   money: [],
+  selectedItem: [],
 };
 
 const ProductReducer = (state = initialState, { type, payload }) => {
@@ -28,6 +29,11 @@ const ProductReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         money: payload,
+      };
+    case actionTypes.SELECTED:
+      return {
+        ...state,
+        selectedItem: payload
       };
     default: {
       return state;

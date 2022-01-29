@@ -19,7 +19,7 @@ class NavBar extends React.Component {
   render() {
     // The products here is from product: ProductReducer
     const currency = this.props.products.money;
-    console.log(currency);
+    // console.log(currency);
 
     return (
       <nav className={`${style.flex} ${style.cart_wrapper}`}>

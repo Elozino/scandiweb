@@ -15,8 +15,12 @@ export const singleItem = (value) => ({
   payload: value,
 });
 
-export const moneySymbol =(value)=>({
+export const moneySymbol = (value) => ({
   type: actionTypes.MONEY_SYMBOL,
   payload: value,
 });
 
+export const selectedItem = (value) => ({
+  type: actionTypes.SELECTED,
+  payload: value,
+});

@@ -16,7 +16,7 @@ class Modal extends React.Component {
           <p className={style.cart_title}>My Bag, {this.props.cartItem.length} items</p>
           <div>
             {this.props.cartItem.map((item) => (
-              <CartList key={item.id} brand={item.name} title={item.title} price={item.price} image={item.gallery} />
+              <CartList key={item?.id} brand={item?.name} title={item?.title} price={item?.price} image={item?.gallery} />
             ))}
           </div>
 

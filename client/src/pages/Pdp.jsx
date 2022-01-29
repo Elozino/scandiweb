@@ -4,7 +4,8 @@ import style from "../styles/pdp.module.css";
 // import { useLocation } from "react-router-dom"
 import { connect } from "react-redux";
 import { addToCart, singleItem } from "../redux/actions/ProductAction";
-import {useHistory} from "react-router-dom"
+import HTMLReactParser from "html-react-parser";
+// import { useHistory } from "react-router-dom";
 
 class Pdp extends React.Component {
   constructor(props) {
@@ -13,40 +14,36 @@ class Pdp extends React.Component {
       counter: 0,
     };
   }
-  // handleGetHistory(){
-  //   const history = useHistory()
-  //   return history
-  // }
 
-  handleCat(item) {
-    console.log(item);
-    console.log(this.props.history);
-    console.log(this.props.state);
+  handleCart(item) {
     // We can now pick the price the name etc
-    // this.props.addToCart([...this.props.cart, item])
+    this.props.addToCart([...this.props.cart, item]);
+    console.log(item);
   }
 
   render() {
-    const {history} = this.state
-    console.log(history);
+    // const { selectedItem } = this.state;
+    console.log(this.props.selectedItem);
     return (
       <div className={style.container}>
         <div className={style.image_container}>
           <div className={style.side_image}>
-            <img src={this.props.gallery} alt="Item_side" />
-            <img src={this.props.gallery} alt="Item_side" />
-            <img src={this.props.gallery} alt="Item_side" />
+            <img src={this.props.selectedItem.gallery} alt="Item_side" />
+            <img src={this.props.selectedItem.gallery} alt="Item_side" />
+            <img src={this.props.selectedItem.gallery} alt="Item_side" />
           </div>
 
           <div className={style.image}>
-            <img src={this.props.gallery} alt="Item_side" />
+            <img src={this.props.selectedItem.gallery} alt="Item_side" />
           </div>
         </div>
 
         <div className={style.cart}>
-          <p className={`${style.item_name} ${style.bold}`}>Apollo</p>
+          <p className={`${style.item_name} ${style.bold}`}>
+            {this.props.selectedItem.brand}
+          </p>
           <br />
-          <p className={`${style.item_name}`}>Running shorts</p>
+          <p className={`${style.item_name}`}>{this.props.selectedItem.name}</p>
 
           <br />
 
@@ -65,12 +62,15 @@ class Pdp extends React.Component {
           <div className="price">
             <p className={style.bold}>PRICE:</p>
             <br />
-            <p className={style.bold}>$50.00</p>
+            <p className={style.bold}>
+              {this.props.selectedItem.prices[0].currency.symbol}{" "}
+              {this.props.selectedItem.prices[0].amount}
+            </p>
             <br />
             <div>
               <button
                 className={style.btn_cart}
-                onClick={() => this.handleCat(this.props.item)}
+                onClick={() => this.handleCart(this.props.selectedItem)}
               >
                 ADD TO CART
               </button>
@@ -79,9 +79,7 @@ class Pdp extends React.Component {
           <br />
           <div className={style.description}>
             <p>
-              Find stunning women's cocktail dresses and party dresses. Stand
-              out in lace and metallic cocktail dresses and party dresses from
-              all your favorite brands.
+              {HTMLReactParser(this.props.selectedItem.description)}
             </p>
           </div>
         </div>
@@ -93,6 +91,7 @@ class Pdp extends React.Component {
 const mapStateToProps = (state) => ({
   // The state
   cart: state.products.cart,
+  selectedItem: state.products.selectedItem,
 });
 
 const mapActionToProps = {

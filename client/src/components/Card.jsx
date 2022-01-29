@@ -3,7 +3,11 @@ import style from "../styles/card.module.css";
 import { BsCart2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addToCart, singleItem } from "../redux/actions/ProductAction";
+import {
+  addToCart,
+  selectedItem,
+  singleItem,
+} from "../redux/actions/ProductAction";
 
 class Card extends React.Component {
   constructor(props) {
@@ -28,8 +32,12 @@ class Card extends React.Component {
       <>
         <div className={style.card_container}>
           <Link
-            to={{ pathname: "/pages/pdp", state: this.props.item }}
+            to={{
+              pathname: "/pages/pdp",
+              state: { test: "This is a test message" },
+            }}
             className={style.link}
+            onClick={() => this.props.selectedItem(this.props.item)}
           >
             {/**Real data to be fetch from the server */}
             <div className={style.card_item}>
@@ -70,5 +78,6 @@ const mapActionToProps = {
   //The action
   addToCart,
   singleItem,
+  selectedItem,
 };
 export default connect(mapStateToProps, mapActionToProps)(Card);
